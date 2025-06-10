@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import '../styles/components.css';
 
 export default function CertForm() {
   const [formData, setFormData] = useState({
