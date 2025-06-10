@@ -1,17 +1,65 @@
+import { useState } from 'react';
 import ThemeToggle from '../components/ThemeToggle';
 import TimeDisplay from '../components/TimeDisplay';
 
-export default function Hareesh() {
-  return (
-    <div>
-      <h1>Smart Certificate Generator & Verification System</h1>
-      <p>
-        The <strong>Smart Certificate Generator & Verification System</strong> is a web-based application...
-        {/* (your existing content continues here) */}
-      </p>
+export default function Home() {
+  const [formData, setFormData] = useState({
+    name: '',
+    course: '',
+    certId: '',
+    date: '',
+    issuer: '',
+    grade: '',
+    signature: '',
+  });
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <div className="container">
+      <h1>🎓 Smart Certificate Generator</h1>
       <ThemeToggle />
       <TimeDisplay />
+
+      <div className="grid">
+        {/* Form Section */}
+        <form className="card form">
+          <label>Holder Name</label>
+          <input name="name" onChange={handleChange} />
+
+          <label>Course Name</label>
+          <input name="course" onChange={handleChange} />
+
+          <label>Certificate ID</label>
+          <input name="certId" onChange={handleChange} />
+
+          <label>Date of Issue</label>
+          <input type="date" name="date" onChange={handleChange} />
+
+          <label>Issued By</label>
+          <input name="issuer" onChange={handleChange} />
+
+          <label>Grade / Performance</label>
+          <input name="grade" onChange={handleChange} />
+
+          <label>Authorized Signature</label>
+          <input name="signature" onChange={handleChange} />
+        </form>
+
+        {/* Preview Section */}
+        <div className="card preview">
+          <h2>Certificate Preview</h2>
+          <p><strong>Holder:</strong> {formData.name || '---'}</p>
+          <p><strong>Course:</strong> {formData.course || '---'}</p>
+          <p><strong>Certificate ID:</strong> {formData.certId || '---'}</p>
+          <p><strong>Issued on:</strong> {formData.date || '---'}</p>
+          <p><strong>Issued by:</strong> {formData.issuer || '---'}</p>
+          <p><strong>Grade:</strong> {formData.grade || '---'}</p>
+          <p><strong>Signature:</strong> {formData.signature || '---'}</p>
+        </div>
+      </div>
     </div>
   );
 }
