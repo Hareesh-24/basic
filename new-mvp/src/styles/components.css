@@ -112,3 +112,24 @@ button:hover {
 .dark button:hover {
   background-color: #4338ca;
 }
+.chat-box {
+  background: #f7f7f7;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-top: 2rem;
+}
+.chat-box input {
+  padding: 0.5rem;
+  width: 60%;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+.chat-box button {
+  padding: 0.5rem 1rem;
+}
+.reply-box {
+  margin-top: 1rem;
+  background: #fff;
+  padding: 1rem;
+  border-left: 4px solid #0070f3;
+}

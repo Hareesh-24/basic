@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import ThemeToggle from '../components/ThemeToggle';
 import TimeDisplay from '../components/TimeDisplay';
+
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -12,10 +13,31 @@ export default function Home() {
     grade: '',
     signature: '',
   });
+  const [prompt, setPrompt] = useState('');
+  const [reply, setReply] = useState('');
+  const [loading, setLoading] = useState(false);
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  const handleSubmit = async () => {
+  setLoading(true);
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt }),
+    });
+    const data = await res.json();
+    setReply(data.reply);
+  } catch (err) {
+    setReply('Error contacting AI');
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="container">
@@ -60,6 +82,27 @@ export default function Home() {
           <p><strong>Signature:</strong> {formData.signature || '---'}</p>
         </div>
       </div>
+    
+
+        <div className="chat-box">
+  <h2>Ask the AI 🤖</h2>
+  <input
+    type="text"
+    value={prompt}
+    onChange={(e) => setPrompt(e.target.value)}
+    placeholder="Type your question"
+  />
+  <button onClick={handleSubmit} disabled={loading}>
+    {loading ? 'Thinking...' : 'Ask'}
+  </button>
+  {reply && (
+    <div className="reply">
+      <strong>AI:</strong> <p>{reply}</p>
+    </div>
+  )}
+</div>
+
+
     </div>
   );
 }
