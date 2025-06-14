@@ -1,13 +1,12 @@
-import '../styles/components.css'; // global styles
-import dynamic from 'next/dynamic';
+import '../styles/components.css'; // your global CSS
 
-const Analytics = dynamic(() => import('@vercel/analytics/react').then(mod => mod.Analytics), { ssr: false });
+import { Analytics } from '@vercel/analytics/react';
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
       <Component {...pageProps} />
-      <Analytics /> {/* <- safe on client only */}
+      <Analytics />
     </>
   );
 }
