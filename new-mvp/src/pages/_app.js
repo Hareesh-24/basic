@@ -1,17 +1,16 @@
-import '../styles/components.css';
-import dynamic from 'next/dynamic';
+// src/pages/_app.js
 
-// Proper dynamic import of Analytics — ensures client-side only
-const Analytics = dynamic(() =>
-  import('@vercel/analytics/react').then((mod) => mod.Analytics),
-  { ssr: false }
-);
+import '../styles/components.css';
+
+function AnalyticsPlaceholder() {
+  return null;
+}
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
       <Component {...pageProps} />
-      <Analytics />
+      <AnalyticsPlaceholder />
     </>
   );
 }
