@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { ref, uploadBytes } from 'firebase/storage';
+import { storage } from '../pages/firebase';
 import ThemeToggle from '../components/ThemeToggle';
 import TimeDisplay from '../components/TimeDisplay';
 
@@ -20,6 +22,7 @@ export default function Home() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
   };
   const handleSubmit = async () => {
   setLoading(true);
@@ -37,6 +40,20 @@ export default function Home() {
     setLoading(false);
   }
 };
+const handleFileUpload = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const storageRef = ref(storage, `uploads/${file.name}`);
+  try {
+    await uploadBytes(storageRef, file);
+    alert('✅ File uploaded successfully (UI only)');
+  } catch (error) {
+    alert('❌ Upload failed (Billing not enabled)');
+    console.error(error);
+  }
+};
+
 
 
   return (
@@ -101,8 +118,15 @@ export default function Home() {
     </div>
   )}
 </div>
+<div className="card">
+  <h3>Upload a File (Demo UI)</h3>
+  <input type="file" onChange={handleFileUpload} />
+</div>
 
 
-    </div>
+
+</div>
   );
+  
+  
 }
