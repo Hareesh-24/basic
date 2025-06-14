@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ref, uploadBytes } from 'firebase/storage';
-import { storage } from '../pages/firebase';
+import { storage } from '../lib/firebase';
 import ThemeToggle from '../components/ThemeToggle';
 import TimeDisplay from '../components/TimeDisplay';
 
